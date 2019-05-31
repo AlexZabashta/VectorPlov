@@ -1,4 +1,4 @@
-package test.gan;
+package test.mnistgan;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -54,15 +54,14 @@ public class TestNN {
         }
     }
 
-    void run() throws InterruptedException, ExecutionException, IOException {
+    void run() throws InterruptedException, FileNotFoundException, ExecutionException {
 
         ExecutorService executor = Executors.newFixedThreadPool(6);
-        List<Dataset> datasets = DataReader.readZipData("csv.zip", executor);
 
-        Pair<List<Dataset>, List<Dataset>> tt = DataReader.splitData("test.txt", datasets);
+        Pair<List<Dataset>, List<Dataset>> datasets = DataReader.readData("csv", executor);
 
-        List<Dataset> train = tt.getLeft();
-        List<Dataset> test = tt.getRight();
+        List<Dataset> train = datasets.getLeft();
+        List<Dataset> test = datasets.getRight();
 
         double baseMF = 0;
 
